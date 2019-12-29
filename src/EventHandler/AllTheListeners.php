@@ -27,20 +27,16 @@ class AllTheListeners implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Event\Radio\GenerateRawNowPlaying::NAME => [
-                ['setListenerCount', -20]
+            Event\Radio\WriteLiquidsoapConfiguration::NAME => [
+                ['configureStreamRecording', -20]
             ],
         ];
     }
 
-    public function setListenerCount(Event\Radio\GenerateRawNowPlaying $event)
+    public function configureStreamRecording(Event\Radio\WriteLiquidsoapConfiguration $event)
     {
-        $np_raw = $event->getRawResponse();
-
-        $np_raw['listeners']['current'] = mt_rand(5, 25);
-        $np_raw['listeners']['unique'] = mt_rand(0, $np_raw['listeners']['current']);
-        $np_raw['listeners']['total'] = $np_raw['listeners']['current'];
-
-        $event->setRawResponse($np_raw);
+        $lines[] = '';
+        $lines[] = '# Test Line';
+        $event->appendLines( $lines );
     }
 }

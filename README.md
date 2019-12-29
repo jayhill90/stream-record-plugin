@@ -1,8 +1,10 @@
-# Extending AzuraCast with Plugins
+# Stream Recording Plugin for AzuraCast
 
-This repository contains documentation for the AzuraCast plugin system, as well as a working example of some of the more common modifications that might be made to the AzuraCast system via plugins.
+This repository contains a plugin for AzuraCast that will enable recording of live DJ streams upon connection.
 
-## Including Plugins
+File Name Format: ShowTitle_DJ_Y-M-D_Archive.mp3
+
+## Including this Plugin
 
 Plugins are automatically discovered if they're located in the `/plugins` directory relative to the main AzuraCast installation. Plugins are ignored by the parent AzuraCast instance, so you can update your instance any time you like without worrying about your plugins being removed.
 
@@ -11,9 +13,9 @@ Plugins are automatically discovered if they're located in the `/plugins` direct
 You should clone the repository for your plugin directly into the `plugins` directory, like so:
 
 ```bash
-mkdir -p /var/azuracast/www/plugins/example-plugin
-cd /var/azuracast/www/plugins/example-plugin
-git clone https://github.com/AzuraCast/example-plugin.git .
+mkdir -p /var/azuracast/www/plugins/
+cd /var/azuracast/www/plugins/
+git clone https://github.com/jayhill90/stream-record-plugin.git
 ```
 
 ### Docker Installations
@@ -27,7 +29,7 @@ services:
   web:
     # image, depends_on, environment, etc...
     volumes:
-      - ./path_to_plugin:/var/azuracast/www/plugins/example-plugin
+      - ./path_to_plugin:/var/azuracast/www/plugins/stream-record-plugin.git
       - www_data:/var/azuracast/www
       - tmp_data:/var/azuracast/www_tmp
 ```
